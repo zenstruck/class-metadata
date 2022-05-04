@@ -1,0 +1,7 @@
+/composer.lock
+/phpunit.xml
+/vendor/
+/build/
+/src/Metadata/GeneratedMap.php
+/.php-cs-fixer.cache
+/.phpunit.result.cache
