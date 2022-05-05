@@ -24,7 +24,7 @@ final class Metadata
      *
      * @return array<string,scalar>
      */
-    public function for(object|string $objectOrClassOrAlias): array
+    public static function for(object|string $objectOrClassOrAlias): array
     {
         return Map::metadataFor($objectOrClassOrAlias);
     }
@@ -32,7 +32,7 @@ final class Metadata
     /**
      * @return class-string[]
      */
-    public function classesWith(string $key): array
+    public static function classesWith(string $key): array
     {
         return Map::classesWith($key);
     }

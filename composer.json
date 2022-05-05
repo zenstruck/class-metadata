@@ -12,9 +12,11 @@
     ],
     "require": {
         "php": ">=8.0",
-        "composer-plugin-api": "^2.0"
+        "composer-plugin-api": "^2.0",
+        "haydenpierce/class-finder": "^0.4.3"
     },
     "require-dev": {
+        "composer/composer": "^2.0",
         "phpstan/phpstan": "^1.4",
         "phpunit/phpunit": "^9.5",
         "symfony/phpunit-bridge": "^6.0"
@@ -28,6 +30,9 @@
     },
     "autoload-dev": {
         "psr-4": { "Zenstruck\\Metadata\\Tests\\": "tests/" }
+    },
+    "extra": {
+        "class": "Zenstruck\\Metadata\\Composer\\Plugin"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
