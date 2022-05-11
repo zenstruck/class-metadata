@@ -17,6 +17,8 @@ final class Alias
     }
 
     /**
+     * Retrieve the alias for a class/object or null if none.
+     *
      * @param object|class-string $objectOrClass
      */
     public static function for(object|string $objectOrClass): ?string
@@ -25,6 +27,8 @@ final class Alias
     }
 
     /**
+     * Retrieve the class for an alias or null if none.
+     *
      * @return ?class-string
      */
     public static function classFor(string $alias): ?string

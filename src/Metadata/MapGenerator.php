@@ -11,7 +11,7 @@ use HaydenPierce\ClassFinder\ClassFinder;
  */
 final class MapGenerator
 {
-    private const FILE = __DIR__.'/GeneratedMap.php';
+    public const FILE = __DIR__.'/GeneratedMap.php';
     private const TEMPLATE = <<<EOT
         <?php
 

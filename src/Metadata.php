@@ -20,6 +20,8 @@ final class Metadata
     }
 
     /**
+     * Retrieve the metadata for a class/object/alias.
+     *
      * @param object|class-string|string $objectOrClassOrAlias
      *
      * @return array<string,scalar>
@@ -30,6 +32,8 @@ final class Metadata
     }
 
     /**
+     * Retrieve all classes with a metadata key.
+     *
      * @return class-string[]
      */
     public static function classesWith(string $key): array

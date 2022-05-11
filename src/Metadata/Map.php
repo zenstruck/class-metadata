@@ -104,7 +104,11 @@ final class Map
         unset($config['alias']);
 
         foreach ($config as $key => $value) {
-            $this->addMetadata($class, $alias, new Metadata($key, $value));
+            try {
+                $this->addMetadata($class, $alias, new Metadata($key, $value));
+            } catch (\TypeError) {
+                throw new \InvalidArgumentException(\sprintf('Metadata values must be scalar, "%s" given for "%s".', \get_debug_type($value), $key));
+            }
         }
     }
 
@@ -126,7 +130,7 @@ final class Map
 
     private static function ensureMapGenerated(): void
     {
-        if (!\class_exists(GeneratedMap::class)) {
+        if (!\file_exists(MapGenerator::FILE)) {
             throw new \RuntimeException('You must run composer dump-autoload with plugins enabled to generate the required metadata map.');
         }
     }

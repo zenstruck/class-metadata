@@ -44,7 +44,7 @@ final class Plugin implements PluginInterface, EventSubscriberInterface, Capable
         $namespaces = $extra['class-metadata']['namespaces'] ?? \array_keys($event->getComposer()->getPackage()->getAutoload()['psr-4'] ?? []);
 
         if (!\is_array($namespaces)) {
-            // disable if set to something other than an array (false)
+            // disable namespace scanning if set to something other than an array (false)
             $namespaces = [];
         }
 
