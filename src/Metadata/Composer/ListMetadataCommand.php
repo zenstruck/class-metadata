@@ -49,7 +49,7 @@ final class ListMetadataCommand extends BaseCommand
         $table->addRows(\array_map(function(string $class) {
             return [
                 $class,
-                Alias::for($class)?->value() ?? 'n/a',
+                Alias::for($class) ?? 'n/a',
                 \json_encode(Metadata::for($class), \JSON_THROW_ON_ERROR),
             ];
         }, $classes));

@@ -24,6 +24,9 @@ final class Map
     /** @var array<string,class-string[]> */
     public array $metadataKeyToClassMap = [];
 
+    /**
+     * @param class-string $class
+     */
     public static function aliasFor(string $class): ?string
     {
         self::ensureMapGenerated();
@@ -72,9 +75,9 @@ final class Map
     {
         self::ensureMapGenerated();
 
-        return \array_unique([
-            ...\array_keys(GeneratedMap::CLASS_TO_ALIAS),
-            ...\array_filter(\array_keys(GeneratedMap::METADATA_MAP), static fn(string $v) => \class_exists($v)),
+        return \array_unique([ // @phpstan-ignore-line
+            ...\array_keys(GeneratedMap::CLASS_TO_ALIAS), // @phpstan-ignore-line
+            ...\array_filter(\array_keys(GeneratedMap::METADATA_MAP), static fn(string $v) => \class_exists($v)), // @phpstan-ignore-line
         ]);
     }
 
@@ -112,7 +115,7 @@ final class Map
     {
         $refClass = new \ReflectionClass($class);
 
-        if ($alias = ($refClass->getAttributes(Alias::class)[0] ?? null)?->newInstance()->value()) {
+        if ($alias = ($refClass->getAttributes(Alias::class)[0] ?? null)?->newInstance()->value) {
             $this->addAlias($class, $alias);
         }
 
