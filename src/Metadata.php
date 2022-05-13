@@ -32,6 +32,37 @@ final class Metadata
     }
 
     /**
+     * Retrieve a specific metadata item by key for a class/object/alias
+     * or null if key does not exist.
+     *
+     * @param object|class-string|string $objectOrClassOrAlias
+     */
+    public static function get(object|string $objectOrClassOrAlias, string $key): string|bool|int|float|null
+    {
+        return self::for($objectOrClassOrAlias)[$key] ?? null;
+    }
+
+    /**
+     * Retrieve the first matching metadata item for a list of keys for a
+     * class/object/alias or null if no keys exist.
+     *
+     * @param object|class-string|string $objectOrClassOrAlias
+     * @param string ...$keys
+     */
+    public static function first(object|string $objectOrClassOrAlias, string ...$keys): string|bool|int|float|null
+    {
+        $metadata = self::for($objectOrClassOrAlias);
+
+        foreach ($keys as $key) {
+            if (isset($metadata[$key])) {
+                return $metadata[$key];
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Retrieve all classes with a metadata key.
      *
      * @return class-string[]
