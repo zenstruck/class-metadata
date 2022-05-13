@@ -22,15 +22,8 @@ final class Plugin implements PluginInterface, EventSubscriberInterface, Capable
     public static function getSubscribedEvents(): array
     {
         return [
-            ScriptEvents::PRE_AUTOLOAD_DUMP => 'preAutoloadDump',
             ScriptEvents::POST_AUTOLOAD_DUMP => 'postAutoloadDump',
         ];
-    }
-
-    public function preAutoloadDump(): void
-    {
-        // generate a stub so it is picked up when using --classmap-authoritative
-        MapGenerator::generateStub();
     }
 
     public function postAutoloadDump(Event $event): void

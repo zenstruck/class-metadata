@@ -47,7 +47,6 @@ final class Metadata
      * class/object/alias or null if no keys exist.
      *
      * @param object|class-string|string $objectOrClassOrAlias
-     * @param string ...$keys
      */
     public static function first(object|string $objectOrClassOrAlias, string ...$keys): string|bool|int|float|null
     {

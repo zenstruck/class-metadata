@@ -57,11 +57,6 @@ final class MapGenerator
         self::createFile($map);
     }
 
-    public static function generateStub(): void
-    {
-        self::createFile(new Map());
-    }
-
     public static function removeFile(): void
     {
         if (\file_exists(self::FILE)) {
