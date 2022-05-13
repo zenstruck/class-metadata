@@ -40,14 +40,18 @@ final class MapGenerator
     {
         $map = new Map();
 
-        foreach ($mapping as $class => $config) {
-            $map->addFromConfig($class, $config);
-        }
-
         foreach ($namespaces as $namespace) {
             foreach (ClassFinder::getClassesInNamespace(\trim($namespace, '\\'), ClassFinder::RECURSIVE_MODE) as $class) {
                 $map->addFromClass($class); // @phpstan-ignore-line
             }
+        }
+
+        foreach ($mapping as $class => $config) {
+            if (!\class_exists($class)) {
+                throw new \InvalidArgumentException(\sprintf('Cannot map metadata for "%s" - this class does not exist.', $class));
+            }
+
+            $map->addFromConfig($class, $config);
         }
 
         self::createFile($map);

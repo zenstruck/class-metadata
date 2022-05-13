@@ -107,7 +107,7 @@ final class Map
             try {
                 $this->addMetadata($class, $alias, new Metadata($key, $value));
             } catch (\TypeError) {
-                throw new \InvalidArgumentException(\sprintf('Metadata values must be scalar, "%s" given for "%s".', \get_debug_type($value), $key));
+                throw new \InvalidArgumentException(\sprintf('Metadata values must be scalar, "%s" given for "%s" on class "%s".', \get_debug_type($value), $key, $class));
             }
         }
     }
@@ -162,6 +162,10 @@ final class Map
     private function addMetadata(string $class, ?string $alias, Metadata $metadata): void
     {
         $this->metadataMap[$class][$metadata->key] = $metadata->value;
+
+        if (!$alias) {
+            $alias = $this->classToAliasMap[$class] ?? null;
+        }
 
         if ($alias) {
             $this->metadataMap[$alias][$metadata->key] = $metadata->value;
