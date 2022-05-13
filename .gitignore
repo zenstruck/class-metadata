@@ -5,3 +5,4 @@
 /src/Metadata/GeneratedMap.php
 /.php-cs-fixer.cache
 /.phpunit.result.cache
+/tests/Fixture/projects/*/vendor
