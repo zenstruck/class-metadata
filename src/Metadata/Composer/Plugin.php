@@ -16,6 +16,7 @@ use Zenstruck\Metadata\MapGenerator;
  * @author Kevin Bond <kevinbond@gmail.com>
  *
  * @internal
+ * @codeCoverageIgnore
  */
 final class Plugin implements PluginInterface, EventSubscriberInterface, Capable, CommandProvider
 {
