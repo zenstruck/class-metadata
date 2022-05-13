@@ -75,10 +75,10 @@ final class Map
     {
         self::ensureMapGenerated();
 
-        return \array_unique([ // @phpstan-ignore-line
+        return \array_values(\array_unique([ // @phpstan-ignore-line
             ...\array_keys(GeneratedMap::CLASS_TO_ALIAS), // @phpstan-ignore-line
             ...\array_filter(\array_keys(GeneratedMap::METADATA_MAP), static fn(string $v) => \class_exists($v)), // @phpstan-ignore-line
-        ]);
+        ]));
     }
 
     /**
