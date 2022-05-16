@@ -164,3 +164,13 @@ have metadata/aliases configured:
 ```bash
 composer list-class-metadata
 ```
+
+Using the [User example above](#attributes), the following would be output:
+
+```
+ ----------------- ------- -------------------------------------
+  Class             Alias   Metadata
+ ----------------- ------- -------------------------------------
+  App\Entity\User   user    {"track":true,"identifier":"getId"}
+ ----------------- ------- -------------------------------------
+```
