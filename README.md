@@ -48,7 +48,6 @@ use Zenstruck\Metadata;
 #[Alias('user')]
 #[Metadata('track', true)]
 #[Metadata('identifier', 'getId')]
-#[Metadata('username', 'getUserIdentifier')]
 class User
 {
     // ...
@@ -118,17 +117,19 @@ Since the alias/metadata maps are created when Composer creates the
 autoload files, runtime lookups are fast - just fetching from generated
 PHP _constant_ array's.
 
+The following examples use the [user class shown above](#attributes).
+
 ### Alias Lookup
 
 ```php
 use Zenstruck\Alias;
 
 // alias for class lookup:
-Alias::for(User::class); // string|null - the alias for User or null if none
-Alias::for(new User()); // alternatively, you can pass the object directly
+Alias::for(User::class); // "user" (string|null - the alias for User or null if none)
+Alias::for(new User()); // "user" (alternatively, you can pass the object directly)
 
 // class for alias lookup:
-Alias::classFor('user'); // class-string|null - the FQCN whose alias is "user"
+Alias::classFor('user'); // "App\Entity" (class-string|null - the FQCN whose alias is "user")
 ```
 
 ### Metadata Lookup
@@ -137,22 +138,22 @@ Alias::classFor('user'); // class-string|null - the FQCN whose alias is "user"
 use Zenstruck\Metadata;
 
 // metadata for a class
-Metadata::for(User::class); // array<string,scalar> - metadata array for User or empty array if none
-Metadata::for(new User()); // alternatively, you can pass the object directly
-Metadata::for('user'); // alternatively, fetch metadata by a class' alias
+Metadata::for(User::class); // ['track' => true, 'identifier' => 'getId'] (array<string,scalar> - metadata array for User or empty array if none)
+Metadata::for(new User()); // ['track' => true, 'identifier' => 'getId'] (alternatively, you can pass the object directly)
+Metadata::for('user'); // ['track' => true, 'identifier' => 'getId'] (alternatively, fetch metadata by a class' alias)
 
 // metadata value for key
-Metadata::get(User::class, 'key'); // scalar|null - the metadata value for "key" or null if none
-Metadata::get(new User(), 'key'); // alternatively, you can pass the object directly
-Metadata::get('alias', 'key'); // alternatively, fetch metadata by a class' alias
+Metadata::get(User::class, 'track'); // true (scalar|null - the metadata value for "key" or null if none)
+Metadata::get(new User(), 'track'); // true (alternatively, you can pass the object directly)
+Metadata::get('user', 'track'); // true (alternatively, fetch metadata by a class' alias)
 
 // "first" metadata value for list of keys
-Metadata::first(User::class, 'key1-', 'key-2', 'key-n'); // scalar|null - first metadata value found for" keys" (left to right) or null if none
-Metadata::first(new User(), 'key1-', 'key-2', 'key-n'); // alternatively, you can pass the object directly
-Metadata::first('user', 'key1-', 'key-2', 'key-n'); // alternatively, fetch metadata by a class' alias
+Metadata::first(User::class, 'audit_id', 'identifier', 'id'); // "getId" (scalar|null - first metadata value found for" keys" (left to right) or null if none)
+Metadata::first(new User(), 'audit_id', 'identifier', 'id'); // "getId" (alternatively, you can pass the object directly)
+Metadata::first('user', 'audit_id', 'identifier', 'id'); // "getId" (alternatively, fetch metadata by a class' alias)
 
 // all classes with metadata key
-Metadata::classesWith('identifier'); // class-string[] - FQCN's that have metadata with key "identifier"
+Metadata::classesWith('identifier'); // ["App\Entity"] (class-string[] - FQCN's that have metadata with key "identifier")
 ```
 
 ## `list-class-metadata` Command
