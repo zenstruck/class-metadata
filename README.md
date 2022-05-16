@@ -34,10 +34,10 @@ effect.
 
 ### Attributes
 
-When creating the autoload configuration for your application, the
-composer plugin scans your PS-4 `autoload` (defined in your `composer.json`)
+When creating the autoload configuration for your application, the composer
+plugin scans your PSR-4 `autoload` namespace(s) (defined in your `composer.json`)
 to look for classes with the `Alias` & `Metadata` attributes. These are
-parsed and mapping files generated.
+parsed and a mapping file is generated.
 
 ```php
 namespace App\Entity;
@@ -76,6 +76,16 @@ You can configure specific namespaces to scan in your `composer.json`:
 You can disable namespace scanning entirely and only configure via your
 [`composer.json`](#composerjson):
 
+```json
+{
+    "extra": {
+        "class-metadata": {
+            "namespaces": false
+        }
+    }
+}
+```
+
 ### `composer.json`
 
 Metadata and aliases can also be configured in your `composer.json`. This allows
@@ -99,8 +109,8 @@ adding aliases and metadata to 3rd party classes:
 ```
 
 For the mapping, a string is a shortcut for an alias (`class1` in the example
-above). An array will be used as the metadata except the special `alias` key
-- it will be used as the _alias_ (`class2` in the example above).
+above). An array will be used as the metadata except the special `alias` key.
+This value will be used as the _alias_ (`class2` in the example above).
 
 ## Runtime API
 
