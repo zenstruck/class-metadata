@@ -1,5 +1,17 @@
 # zenstruck/class-metadata
 
+Add human-readable class aliases and scalar metadata to your classes with
+an efficient runtime lookup. These can be added via [attributes](#attributes) or
+[composer.json configuration](#composerjson).
+
+1. **Alias**: short name for a class (could be used as an alternative to storing a FQCN
+   in the database).
+2. **Metadata**: key-value map of scalar values specific to a class (could be used
+   to mark a class as _trackable_ in an auditing system).
+
+This library provides a Composer plugin that hooks into Composer's dump-autoload
+event to generate a lookup map for use at [runtime](#runtime-api).
+
 ## Installation
 
 1. `composer require zenstruck/class-metadata`
@@ -7,11 +19,88 @@
 
 ## Configuration
 
+Metadata and aliases can be added to class' via [attributes](#attributes) or
+[`composer.json`](#composerjson) config.
+
+1. Aliases must be a non-empty string.
+2. Only 1 alias allowed per class.
+3. Multiple classes cannot have the same alias.
+4. Metadata keys must be strings.
+5. Metadata values must be scalar (`bool|float|int|string`).
+
+**NOTE:** During development, when adding/changing/removing aliases and
+metadata, you need to run `composer dump-autoload` for the changes to take
+effect.
+
 ### Attributes
+
+When creating the autoload configuration for your application, the
+composer plugin scans your PS-4 `autoload` (defined in your `composer.json`)
+to look for classes with the `Alias` & `Metadata` attributes. These are
+parsed and mapping files generated.
+
+```php
+namespace App\Entity;
+
+use Zenstruck\Alias;
+use Zenstruck\Metadata;
+
+#[Alias('user')]
+#[Metadata('track', true)]
+#[Metadata('identifier', 'getId')]
+#[Metadata('username', 'getUserIdentifier')]
+class User
+{
+    // ...
+}
+```
 
 #### Customize Namespaces
 
+If you have a large code-base, scanning all the files could be time-consuming.
+You can configure specific namespaces to scan in your `composer.json`:
+
+```json
+{
+    "extra": {
+        "class-metadata": {
+            "namespaces": [
+                "App\\Domain\\User\\Entity",
+                "App\\Domain\\Store\\Entity"
+            ]
+        }
+    }
+}
+```
+
+You can disable namespace scanning entirely and only configure via your
+[`composer.json`](#composerjson):
+
 ### `composer.json`
+
+Metadata and aliases can also be configured in your `composer.json`. This allows
+adding aliases and metadata to 3rd party classes:
+
+```json
+{
+    "extra": {
+        "class-metadata": {
+            "map": {
+                "Vendor\\Code\\Class1": "class1",
+                "Vendor\\Code\\Class2": {
+                    "alias": "class2",
+                    "key1": "value",
+                    "key2": 7
+                }
+            }
+        }
+    }
+}
+```
+
+For the mapping, a string is a shortcut for an alias (`class1` in the example
+above). An array will be used as the metadata except the special `alias` key
+- it will be used as the _alias_ (`class2` in the example above).
 
 ## Runtime API
 
@@ -25,8 +114,8 @@ PHP _constant_ array's.
 use Zenstruck\Alias;
 
 // alias for class lookup:
-Alias::for(MyClass::class); // string|null - the alias for MyClass or null if none
-Alias::for(new MyClass()); // alternatively, you can pass the object directly
+Alias::for(User::class); // string|null - the alias for User or null if none
+Alias::for(new User()); // alternatively, you can pass the object directly
 
 // class for alias lookup:
 Alias::classFor('user'); // class-string|null - the FQCN whose alias is "user"
@@ -38,19 +127,19 @@ Alias::classFor('user'); // class-string|null - the FQCN whose alias is "user"
 use Zenstruck\Metadata;
 
 // metadata for a class
-Metadata::for(MyClass::class); // array<string,scalar> - metadata array for MyClass or empty array if none
-Metadata::for(new MyClass()); // alternatively, you can pass the object directly
-Metadata::for('alias'); // alternatively, fetch metadata by a class' alias
+Metadata::for(User::class); // array<string,scalar> - metadata array for User or empty array if none
+Metadata::for(new User()); // alternatively, you can pass the object directly
+Metadata::for('user'); // alternatively, fetch metadata by a class' alias
 
 // metadata value for key
-Metadata::get(MyClass::class, 'key'); // scalar|null - the metadata value for "key" or null if none
-Metadata::get(new MyClass(), 'key'); // alternatively, you can pass the object directly
+Metadata::get(User::class, 'key'); // scalar|null - the metadata value for "key" or null if none
+Metadata::get(new User(), 'key'); // alternatively, you can pass the object directly
 Metadata::get('alias', 'key'); // alternatively, fetch metadata by a class' alias
 
 // "first" metadata value for list of keys
-Metadata::first(MyClass::class, 'key1-', 'key-2', 'key-n'); // scalar|null - first metadata value found for" keys" (left to right) or null if none
-Metadata::first(new MyClass(), 'key1-', 'key-2', 'key-n'); // alternatively, you can pass the object directly
-Metadata::first('alias', 'key1-', 'key-2', 'key-n'); // alternatively, fetch metadata by a class' alias
+Metadata::first(User::class, 'key1-', 'key-2', 'key-n'); // scalar|null - first metadata value found for" keys" (left to right) or null if none
+Metadata::first(new User(), 'key1-', 'key-2', 'key-n'); // alternatively, you can pass the object directly
+Metadata::first('user', 'key1-', 'key-2', 'key-n'); // alternatively, fetch metadata by a class' alias
 
 // all classes with metadata key
 Metadata::classesWith('identifier'); // class-string[] - FQCN's that have metadata with key "identifier"
