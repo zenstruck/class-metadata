@@ -10,7 +10,7 @@
     },
     "extra": {
         "class-metadata": {
-            "namespaces": ["App\\Sub"],
+            "paths": ["src/Sub", "src/Domain/*/Entity"],
             "map": {
                 "Zenstruck\\Assert": "assert",
                 "Zenstruck\\Assert\\Expectation": {

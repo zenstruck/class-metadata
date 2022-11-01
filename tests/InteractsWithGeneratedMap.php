@@ -20,8 +20,8 @@ trait InteractsWithGeneratedMap
         MapGenerator::removeFile();
     }
 
-    private static function generateMap(array $namespaces = ['Zenstruck\Metadata\Tests\Fixture\Classes'], array $mapping = []): void
+    private static function generateMap(array $paths = [__DIR__.'/Fixture/Classes'], array $mapping = []): void
     {
-        MapGenerator::generate($namespaces, $mapping);
+        MapGenerator::generate($paths, $mapping);
     }
 }

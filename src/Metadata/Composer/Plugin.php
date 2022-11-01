@@ -35,15 +35,15 @@ final class Plugin implements PluginInterface, EventSubscriberInterface, Capable
 
         $extra = $event->getComposer()->getPackage()->getExtra();
 
-        // use root package's psr-4 autoload namespaces if not set explicitly
-        $namespaces = $extra['class-metadata']['namespaces'] ?? \array_keys($event->getComposer()->getPackage()->getAutoload()['psr-4'] ?? []);
+        // use root package's psr-4 autoload path if not set explicitly
+        $paths = $extra['class-metadata']['paths'] ?? $event->getComposer()->getPackage()->getAutoload()['psr-4'] ?? [];
 
-        if (!\is_array($namespaces)) {
-            // disable namespace scanning if set to something other than an array (false)
-            $namespaces = [];
+        if (!\is_array($paths)) {
+            // disable path scanning if set to something other than an array (false)
+            $paths = [];
         }
 
-        MapGenerator::generate($namespaces, $extra['class-metadata']['map'] ?? []);
+        MapGenerator::generate($paths, $extra['class-metadata']['map'] ?? []);
 
         $event->getIO()->write('<info>Generated class-metadata map.</>');
     }

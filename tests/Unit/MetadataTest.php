@@ -20,7 +20,7 @@ final class MetadataTest extends TestCase
     /**
      * @test
      */
-    public function metadata_generated_for_namespace(): void
+    public function metadata_generated_for_path(): void
     {
         self::generateMap();
 
@@ -63,7 +63,7 @@ final class MetadataTest extends TestCase
     /**
      * @test
      */
-    public function metadata_generated_for_namespace_and_mapping_config(): void
+    public function metadata_generated_for_path_and_mapping_config(): void
     {
         self::generateMap(mapping: [
             Class1::class => ['alias' => 'class1', 'key1' => 'class1-value1'],

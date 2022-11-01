@@ -2,7 +2,7 @@
 
 namespace Zenstruck\Metadata;
 
-use HaydenPierce\ClassFinder\ClassFinder;
+use Composer\ClassMapGenerator\ClassMapGenerator;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
@@ -33,17 +33,23 @@ final class MapGenerator
         EOT;
 
     /**
-     * @param array<string,string>                            $namespaces
+     * @param string[]                                        $paths
      * @param array<class-string,string|array<string,scalar>> $mapping
      */
-    public static function generate(array $namespaces, array $mapping): void
+    public static function generate(array $paths, array $mapping): void
     {
         $map = new Map();
+        $generator = new ClassMapGenerator();
 
-        foreach ($namespaces as $namespace) {
-            foreach (ClassFinder::getClassesInNamespace(\trim($namespace, '\\'), ClassFinder::RECURSIVE_MODE) as $class) {
-                $map->addFromClass($class); // @phpstan-ignore-line
-            }
+        foreach ($paths as $path) {
+            $generator->scanPaths($path);
+        }
+
+        $classMap = $generator->getClassMap();
+        $classMap->sort();
+
+        foreach (\array_keys($classMap->getMap()) as $class) {
+            $map->addFromClass($class);
         }
 
         foreach ($mapping as $class => $config) {

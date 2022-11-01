@@ -20,7 +20,7 @@ final class AliasTest extends TestCase
     /**
      * @test
      */
-    public function alias_for_generated_from_namespace(): void
+    public function alias_for_generated_from_path(): void
     {
         self::generateMap();
 
@@ -43,7 +43,7 @@ final class AliasTest extends TestCase
      * @test
      * @dataProvider validConfigMappingProvider
      */
-    public function alias_class_for_generated_from_namespace_and_mapping_config(array $mapping): void
+    public function alias_class_for_generated_from_path_and_mapping_config(array $mapping): void
     {
         self::generateMap(mapping: $mapping);
 

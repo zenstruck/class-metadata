@@ -35,7 +35,7 @@ effect.
 ### Attributes
 
 When creating the autoload configuration for your application, the composer
-plugin scans your PSR-4 `autoload` namespace(s) (defined in your `composer.json`)
+plugin scans your PSR-4 `autoload` paths(s) (defined in your `composer.json`)
 to look for classes with the `Alias` & `Metadata` attributes. These are
 parsed and a mapping file is generated.
 
@@ -54,32 +54,31 @@ class User
 }
 ```
 
-#### Customize Namespaces
+#### Customize Paths
 
 If you have a large code-base, scanning all the files could be time-consuming.
-You can configure specific namespaces to scan in your `composer.json`:
+You can configure specific paths to scan in your `composer.json`:
 
 ```json
 {
     "extra": {
         "class-metadata": {
-            "namespaces": [
-                "App\\Domain\\User\\Entity",
-                "App\\Domain\\Store\\Entity"
+            "paths": [
+                "src/Domain/*/Entity"
             ]
         }
     }
 }
 ```
 
-You can disable namespace scanning entirely and only configure via your
+You can disable path scanning entirely and only configure via your
 [`composer.json`](#composerjson):
 
 ```json
 {
     "extra": {
         "class-metadata": {
-            "namespaces": false
+            "paths": false
         }
     }
 }

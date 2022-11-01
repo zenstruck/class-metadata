@@ -60,7 +60,7 @@ final class IntegrationTest extends TestCase
     /**
      * @test
      */
-    public function can_disable_namespace_scanning(): void
+    public function can_disable_path_scanning(): void
     {
         $cwd = __DIR__.'/Fixture/projects/project2';
 
@@ -77,7 +77,7 @@ final class IntegrationTest extends TestCase
     /**
      * @test
      */
-    public function can_specify_specific_namespaces_to_scan(): void
+    public function can_specify_specific_paths_to_scan(): void
     {
         $cwd = __DIR__.'/Fixture/projects/project3';
 
@@ -85,10 +85,13 @@ final class IntegrationTest extends TestCase
         $this->assertStringContainsString('Generated class-metadata map.', $output);
 
         $output = $this->composer(['list-class-metadata'], $cwd);
-        $this->assertStringNotContainsString('App\ClassB                     class-b       []', $output);
-        $this->assertStringContainsString('App\Sub\ClassC                 class-c       {"foo":"bar"}', $output);
-        $this->assertStringContainsString('Zenstruck\Assert               assert        []', $output);
-        $this->assertStringContainsString('Zenstruck\Assert\Expectation   expectation   {"key1":"value","key2":7}', $output);
+        $this->assertStringNotContainsString('ClassB', $output);
+        $this->assertStringNotContainsString('OtherClass', $output);
+        $this->assertStringContainsString('Entity1', $output);
+        $this->assertStringContainsString('Entity2', $output);
+        $this->assertStringContainsString('App\Sub\ClassC                      class-c       {"foo":"bar"}', $output);
+        $this->assertStringContainsString('Zenstruck\Assert                    assert        []', $output);
+        $this->assertStringContainsString('Zenstruck\Assert\Expectation        expectation   {"key1":"value","key2":7}', $output);
     }
 
     private function composer(array $args, string $cwd): string

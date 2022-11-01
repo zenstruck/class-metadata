@@ -10,7 +10,7 @@
     },
     "extra": {
         "class-metadata": {
-            "namespaces": false,
+            "paths": false,
             "map": {
                 "Zenstruck\\Assert": "assert",
                 "Zenstruck\\Assert\\Expectation": {
