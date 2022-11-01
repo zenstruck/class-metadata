@@ -35,7 +35,7 @@ effect.
 ### Attributes
 
 When creating the autoload configuration for your application, the composer
-plugin scans your PSR-4 `autoload` paths(s) (defined in your `composer.json`)
+plugin scans your PSR-4 `autoload` path(s) (defined in your `composer.json`)
 to look for classes with the `Alias` & `Metadata` attributes. These are
 parsed and a mapping file is generated.
 
