@@ -14,6 +14,7 @@ use Zenstruck\Metadata\Map;
  * @author Kevin Bond <kevinbond@gmail.com>
  *
  * @internal
+ *
  * @codeCoverageIgnore
  */
 final class ListMetadataCommand extends BaseCommand
