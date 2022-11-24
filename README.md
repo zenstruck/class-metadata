@@ -173,3 +173,24 @@ Using the [User example above](#attributes), the following would be output:
   App\Entity\User   user    {"track":true,"identifier":"getId"}
  ----------------- ------- -------------------------------------
 ```
+
+## Doctrine Bridge
+
+### `AliasManagerRegistry`
+
+This is a decorated `ManagerRegistry` that allows using aliases for the
+`getRepository()` and `getManagerForClass()` methods:
+
+```php
+use Zenstruck\Metadata\Bridge\Doctrine\AliasManagerRegistry;
+
+/** @var \Doctrine\Persistence\ManagerRegistry $inner */
+
+$registry = new AliasManagerRegistry($inner);
+
+$registry->getRepository('user'); // converts "user" alias to FQCN
+$registry->getRepository(User::class); // can still use FQCN
+
+$registry->getManagerForClass('user'); // converts "user" alias to FQCN
+$registry->getManagerForClass(User::class); // can still use FQCN
+```

@@ -17,6 +17,7 @@
     },
     "require-dev": {
         "composer/composer": "^2.0",
+        "doctrine/persistence": "^1.0|^2.0|^3.0",
         "phpstan/phpstan": "^1.4",
         "phpunit/phpunit": "^9.5",
         "symfony/phpunit-bridge": "^6.0"
@@ -33,6 +34,9 @@
     },
     "extra": {
         "class": "Zenstruck\\Metadata\\Composer\\Plugin"
+    },
+    "suggest": {
+        "doctrine/persistence": "To use the AliasManagerRegistry decorator"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
