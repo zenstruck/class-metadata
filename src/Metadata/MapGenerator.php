@@ -42,7 +42,9 @@ final class MapGenerator
         $generator = new ClassMapGenerator();
 
         foreach ($paths as $path) {
-            $generator->scanPaths($path);
+            foreach ((array) $path as $p) {
+                $generator->scanPaths($p);
+            }
         }
 
         $classMap = $generator->getClassMap();
