@@ -17,6 +17,8 @@ event to generate a lookup map for use at [runtime](#runtime-api).
 
 ## Installation
 
+> **Note**: This package requires composer 2.4+.
+
 1. `composer require zenstruck/class-metadata`
 2. When asked to enable the Composer plugin, choose `y` (yes).
 

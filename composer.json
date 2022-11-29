@@ -15,7 +15,7 @@
         "composer-plugin-api": "^2.0"
     },
     "require-dev": {
-        "composer/composer": "^2.0",
+        "composer/composer": "^2.4",
         "doctrine/persistence": "^1.0|^2.0|^3.0",
         "phpstan/phpstan": "^1.4",
         "phpunit/phpunit": "^9.5",
@@ -30,6 +30,9 @@
     },
     "autoload-dev": {
         "psr-4": { "Zenstruck\\Metadata\\Tests\\": "tests/" }
+    },
+    "conflict": {
+        "composer": "<2.4"
     },
     "extra": {
         "class": "Zenstruck\\Metadata\\Composer\\Plugin"
