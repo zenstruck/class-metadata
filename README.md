@@ -1,5 +1,8 @@
 # zenstruck/class-metadata
 
+[![CI](https://github.com/zenstruck/class-metadata/actions/workflows/ci.yml/badge.svg)](https://github.com/zenstruck/class-metadata/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/zenstruck/class-metadata/branch/1.x/graph/badge.svg?token=A8BKCMI6KD)](https://codecov.io/gh/zenstruck/class-metadata)
+
 Add human-readable class aliases and scalar metadata to your classes with
 an efficient runtime lookup. These can be added via [attributes](#attributes) or
 [composer.json configuration](#composerjson).
