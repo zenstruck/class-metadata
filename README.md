@@ -33,9 +33,9 @@ Metadata and aliases can be added to class' via [attributes](#attributes) or
 4. Metadata keys must be strings.
 5. Metadata values must be scalar (`bool|float|int|string`).
 
-**NOTE:** During development, when adding/changing/removing aliases and
-metadata, you need to run `composer dump-autoload` for the changes to take
-effect.
+> **Note**: During development, when adding/changing/removing aliases and
+> metadata, you need to run `composer dump-autoload` for the changes to take
+> effect.
 
 ### Attributes
 
@@ -133,7 +133,7 @@ Alias::for(User::class); // "user" (string|null - the alias for User or null if 
 Alias::for(new User()); // "user" (alternatively, you can pass the object directly)
 
 // class for alias lookup:
-Alias::classFor('user'); // "App\Entity" (class-string|null - the FQCN whose alias is "user")
+Alias::classFor('user'); // "App\Entity\User" (class-string|null - the FQCN whose alias is "user")
 ```
 
 ### Metadata Lookup
@@ -157,7 +157,7 @@ Metadata::first(new User(), 'audit_id', 'identifier', 'id'); // "getId" (alterna
 Metadata::first('user', 'audit_id', 'identifier', 'id'); // "getId" (alternatively, fetch metadata by a class' alias)
 
 // all classes with metadata key
-Metadata::classesWith('identifier'); // ["App\Entity"] (class-string[] - FQCN's that have metadata with key "identifier")
+Metadata::classesWith('identifier'); // ["App\Entity\User"] (class-string[] - FQCN's that have metadata with key "identifier")
 ```
 
 ## `list-class-metadata` Command
