@@ -18,7 +18,7 @@
         "composer/composer": "^2.4",
         "doctrine/persistence": "^1.0|^2.0|^3.0",
         "phpstan/phpstan": "^1.4",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^9.6.21",
         "symfony/phpunit-bridge": "^6.0"
     },
     "config": {
