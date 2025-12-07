@@ -17,9 +17,9 @@
     "require-dev": {
         "composer/composer": "^2.4",
         "doctrine/persistence": "^1.0|^2.0|^3.0",
-        "phpstan/phpstan": "^1.4",
+        "phpstan/phpstan": "^2.0",
         "phpunit/phpunit": "^9.6.21",
-        "symfony/phpunit-bridge": "^6.0"
+        "symfony/phpunit-bridge": "^6.0|^7.0|^8.0"
     },
     "config": {
         "preferred-install": "dist",
