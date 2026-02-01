@@ -57,7 +57,7 @@ final class ListMetadataCommand extends BaseCommand
         $table = new Table($output);
         $table->setStyle($style);
         $table->setHeaders(['Class', 'Alias', 'Metadata']);
-        $table->addRows(\array_map(fn(string $class) => [
+        $table->addRows(\array_map(static fn(string $class) => [
             $class,
             Alias::for($class) ?? 'n/a',
             \json_encode(Metadata::for($class), \JSON_THROW_ON_ERROR),
