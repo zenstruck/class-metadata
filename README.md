@@ -31,7 +31,7 @@ Metadata and aliases can be added to class' via [attributes](#attributes) or
 2. Only 1 alias allowed per class.
 3. Multiple classes cannot have the same alias.
 4. Metadata keys must be strings.
-5. Metadata values must be scalar (`bool|float|int|string`).
+5. Metadata values must be array or scalar (`bool|float|int|string|array`).
 
 > **Note**: During development, when adding/changing/removing aliases and
 > metadata, you need to run `composer dump-autoload` for the changes to take
@@ -53,6 +53,7 @@ use Zenstruck\Metadata;
 #[Alias('user')]
 #[Metadata('track', true)]
 #[Metadata('identifier', 'getId')]
+#[Metadata('alternate_ids', ['email','ssn'])]
 class User
 {
     // ...
